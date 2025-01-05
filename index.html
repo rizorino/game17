@@ -115,7 +115,7 @@
         <h2>きゃあ！引ったくりよ！</h2>
         <h3>引ったくりを捕まえろ！</h3>
         <button class="action-button" id="action-button" onclick="handleActionClick()">連打</button>
-        <p id="action-status">連打回数: 0/30</p>
+        <p id="action-status">連打回数: 0/50</p>
     </div>
 
     <!-- Game Over Screen -->
@@ -236,11 +236,12 @@
 
         function showActionScreen() {
             document.getElementById('question-screen').style.display = 'none';
+            document.getElementById('background-image').classList.add('darken');
             document.getElementById('action-screen').style.display = 'block';
             actionClicks = 0;
-            document.getElementById('action-status').textContent = `連打回数: ${actionClicks}/30`;
+            document.getElementById('action-status').textContent = `連打回数: ${actionClicks}/50`;
             actionTimer = setTimeout(() => {
-                if (actionClicks < 30) {
+                if (actionClicks < 50) {
                     endGame(false);
                 }
             }, 10000);
@@ -248,8 +249,8 @@
 
         function handleActionClick() {
             actionClicks++;
-            document.getElementById('action-status').textContent = `連打回数: ${actionClicks}/30`;
-            if (actionClicks >= 30) {
+            document.getElementById('action-status').textContent = `連打回数: ${actionClicks}/50`;
+            if (actionClicks >= 50) {
                 clearTimeout(actionTimer);
                 proceedAfterAction();
             }
@@ -257,6 +258,7 @@
 
         function proceedAfterAction() {
             document.getElementById('action-screen').style.display = 'none';
+            document.getElementById('background-image').classList.remove('darken');
             currentQuestion++;
             updateQuestion();
             document.getElementById('question-screen').style.display = 'block';
@@ -280,18 +282,3 @@
             } else {
                 document.getElementById('game-over-screen').style.display = 'block';
             }
-        }
-
-        function restartGame() {
-            currentQuestion = 0;
-            hp = 10;
-            document.getElementById('game-over-screen').style.display = 'none';
-            document.getElementById('win-screen').style.display = 'none';
-            document.getElementById('background-image').classList.remove('hidden');
-            document.getElementById('background-image').src = "images/1.jpg";
-            startMonologue();
-        }
-    </script>
-
-</body>
-</html>
